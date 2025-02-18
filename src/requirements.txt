@@ -1,0 +1,12 @@
+flask
+flask-sqlalchemy
+flask-migrate
+psycopg2-binary
+python-dotenv
+requests
+pandas
+pytest
+pytest-flask
+locust
+onesignal-sdk
+alembic

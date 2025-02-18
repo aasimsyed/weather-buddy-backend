@@ -1,0 +1,9 @@
+Flask
+Werkzeug
+gunicorn 
+pytest
+pytest-mock
+pytest-cov
+pytest-asyncio
+pytest-flask
+pytest-flask-sqlalchemy
