@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./thunder-buddy-api
+    container_name: thunder_buddy_backend
+    ports:
+      - "5555:5555"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/thunderbuddy_db
+      - WEATHERBIT_API_KEY=${WEATHERBIT_API_KEY}
+      - ONESIGNAL_API_KEY=${ONESIGNAL_API_KEY}
+      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
+    volumes:
+      - ./thunder-buddy-api:/app  # Bind mount for live code updates
+    depends_on:
+      - db
+
+  analytics:
+    build: ./thunder-buddy-analytics
+    container_name: thunder_buddy_analytics
+    volumes:
+      - ./thunder-buddy-analytics:/app  # Bind mount for live code updates
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13-alpine
+    container_name: thunder_buddy_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: thunderbuddy_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

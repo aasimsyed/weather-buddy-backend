@@ -1,0 +1,9 @@
+node_modules
+
+.env
+
+thunder-buddy-api/venv
+thunder-buddy-api/thunder-buddy-api.egg-info
+thunder-buddy-api/__pycache__
+thunder-buddy-api/tests/__pycache__
+thunder-buddy-api/tests/data/__pycache__

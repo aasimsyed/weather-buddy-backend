@@ -1,0 +1,33 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Configure AWS credentials (store these as secrets in GitHub)
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      # (Optional) Build Docker images if required for deployment
+      - name: Build Docker Images
+        run: docker-compose build
+
+      # Deploy to AWS Fargate (update the command based on your deployment process)
+      - name: Deploy to AWS Fargate
+        run: |
+          echo "Deploying Thunder Buddy to AWS Fargate..."
+          # Example: Update the ECS service to force a new deployment
+          aws ecs update-service --cluster thunder-buddy-cluster --service thunder-buddy-service --force-new-deployment
